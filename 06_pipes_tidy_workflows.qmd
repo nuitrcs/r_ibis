@@ -1,0 +1,360 @@
+---
+title: "Workflows with Tidyverse"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+Load your packages and import the data:
+```{r}
+library(dplyr)
+healthdata <- read.csv("data/nhanes.csv")
+```
+
+# Pipe Operator
+
+As you put together more complex expressions with R, nesting function calls can make code hard to read, because it flips the order of the steps: the last operation ends up on the outside.  
+
+Instead, we can use a "pipe" operator to chain together commands in order.  The operator takes the output from a command on the left and makes it the first input to the function on the right.
+
+The built-in version of this operator is `|>`.  Another version of the operator that is commonly used, which comes from a package that's installed with tidyverse, is `%>%`.  `%>%` has some additional capabilities that `|>` doesn't, but they work the same for the situations we'll discuss here.
+
+
+```{r}
+# instead of:
+round(log(10))
+
+# with pipe
+log(10) |> round()
+log(10) %>% round()
+```
+
+The left hand side, `log(10)` is computed, and the output becomes the first input to the `round()` function on the right hand side.
+
+Other inputs can also be used:
+
+```{r}
+log(10) |> round(digits=3)
+```
+
+Using the pipe operator means that we can think about the steps we need to take with the data, and then have those steps show up in that order in the code.
+
+::: callout-tip
+## RStudio Tip: Pipe Shortcut
+
+The keyboard shortcut to type a pipe operator in RStudio is Ctrl + Shift + M (Windows) or Cmd + Shift + M (Mac).  This will insert `%>%` by default.  To change to `|>`, go to the Tools menu > Global Options > Code > Use Native Pipe Operator
+:::
+
+
+## TRY IT
+
+Convert the following expression to use the pipe operator instead:
+
+```{r}
+max(round(healthdata$weight), na.rm=TRUE)
+
+
+```
+
+
+
+## Pipe with Tidyverse
+
+dplyr functions, like `select()`, `filter()`, and `mutate()` take a data frame as their first input and return a data frame.  This means they can be chained together easily with the pipe operator.  
+
+```{r}
+filter(healthdata, gender == "male") %>%
+  select(height, weight)
+```
+
+Note that the data frame name is omitted from `select()` because the data frame that results from `filter()` is that first input because of the pipe operator.  
+
+To make it clearer what data frame you're working with, it's common to put the data frame by itself at the start of a chain of dplyr commands:
+
+```{r}
+healthdata %>%
+  filter(gender == "male") %>%
+  select(height, weight)
+```
+
+Remember: Order matters - if you want to filter using a particular column, make sure you don't remove it with select before the filter step 😀 
+
+## TRY IT
+
+Subset the healtdata data frame to contain the the education and marital_status for participants younger than 22.
+
+```{r}
+
+```
+
+
+# Save a Data Frame
+
+To save a data frame to a CSV file, use the `write.csv()` function.
+
+```{r, eval=FALSE}
+write.csv(healthdata[healthdata$gender == "male", ], 
+          file="male_respondents.csv",
+          row.names = FALSE)  # don't number the rows in the output
+```
+
+The file is saved in your working directory; include directories in the file path to direct the output elsewhere.
+
+If you want to work with the resulting file in Excel, it's still recommended to save a CSV file, instead of an Excel file, as Excel can easily open a CSV file.  
+
+It is HIGHLY recommended to save a data frame to a new file; do NOT overwrite the original CSV or Excel file that you read into R and modified (meaning use a different file name when you save the file).  Overwriting the original file would prevent you from undoing any changes and prevents you from replicating your workflow, since the complete workflow would use two different versions of the same file.
+
+
+
+
+
+# Tidyverse
+
+We've seen a few tidyverse functions that are useful when working with data frames: `select()`, `filter()`, `mutate()`, `rename()`.  These functions can be useful on their own, but they're most useful when combined together into multi-step workflows.  
+
+## Tibbles
+
+Let's start by loading the tidyverse set of packages, and using the `read_csv()` function from the readr package to load the dataset instead of using the built-in `read.csv()` function
+
+```{r}
+library(tidyverse)
+
+healthdata <- read_csv("data/nhanes.csv")
+```
+
+`read_csv()` makes slighly different assumptions about the data when importing than `read.csv()`.  For example, it reads in all numeric variables as the numeric type instead of using the integer type for some variables.
+
+For data sets that include dates or other special types of data, `read_csv()` often handles and automatically converts such data into appropriate types well.
+
+The biggest difference between `read_csv()` and `read.csv()` is that `read_csv()` results in a tibble, which is a data frame with some additional features.
+
+```{r}
+healthdata
+```
+
+The most obvious difference between a tibble and a regular data frame is that the output of a tibble in the console is limited to what fits.
+
+To view the entire data frame, use the `View()` function:
+
+```{r, eval=FALSE}
+View(healthdata)
+```
+
+
+## Review
+
+We've seen 3 key functions from the dplyr package already:
+
+* `select()`: to choose columns
+* `filter()`: to choose rows
+* `mutate()`: to create a column or alter an existing column
+
+As well as:
+
+* `rename()`: to change the name of existing columns
+* `arrange()`: to sort the data frame by selected columns
+
+Remember that we do not need quotes around column names inside of these functions.  
+
+```{r, eval=FALSE}
+select(healthdata, gender, age)
+filter(healthdata, age > 40)
+mutate(healthdata, senior = age >= 65)
+arrange(healthdata, age)
+```
+
+We're going to add a few more functions to this set, and learn how to combine them together using the pipe operator (`%>%` or `|>`).
+
+## Summarize
+
+We've seen how to subset a data frame with dplyr functions, but how do we compute summary statistics, like a mean?  `mutate()` is for changing an entire column in a data frame (either an existing one or creating a new one).  `summarize()` is for computing single values, such as a mean or median.
+
+```{r}
+summarize(healthdata, mean_age = mean(age))
+```
+
+The result is still a data frame.
+
+You can compute multiple summary measures at the same time:
+
+```{r}
+summarize(healthdata, 
+          mean_age = mean(age),
+          mean_weight = mean(weight, na.rm=TRUE))
+```
+
+
+## TRY IT
+
+Compute the mean and median of both bp_sys1 and bp_sys2
+
+```{r}
+
+```
+
+
+
+## Multi-step Operations 
+
+What about computing summary statistics on a subset of the data?  To do that, we need to combine multiple functions.  Use the pipe operator (`%>%` or `|>`) to combine multiple commands.
+
+A simple version is to subset the observations that we want to use with `filter()`:
+
+```{r}
+healthdata %>%
+  filter(gender == "male") %>%
+  summarize(mean_weight = mean(weight, na.rm=TRUE))
+```
+
+A more complicated example is to change a variable with `mutate()` (just temporarily) to use in a calculation.  For example, let's convert weight from kg to pounds before computing the mean:
+
+```{r}
+healthdata %>%
+  filter(gender == "male") %>%
+  mutate(weight = weight * 2.2) %>%
+  summarize(mean_weight = mean(weight, na.rm=TRUE))
+```
+
+Compare this to the base R code for the same operation:
+
+```{r}
+mean(healthdata$weight[healthdata$gender == "male"] * 2.2, na.rm=TRUE)
+```
+
+
+
+## TRY IT
+
+Compute the median pulse for female participants.
+
+```{r}
+
+```
+
+
+
+## Working with Groups
+
+Above, we computed summary statistics for particular subgroups.  But it would be nice to compute them for all subgroups at once -- for example, for both male and female participants.  Use `group_by()` as part of a multi-step operation to do that:
+
+```{r}
+healthdata %>%
+  group_by(gender) %>%
+  summarize(mean_weight = mean(weight, na.rm=TRUE))
+```
+
+We get one row of output for each distinct value of the variable we grouped by.
+
+We can also group by multiple variables:
+
+```{r}
+healthdata %>%
+  group_by(age, gender) %>%
+  summarize(mean_weight = mean(weight, na.rm=TRUE))
+```
+
+The rows have all combinations of the two grouping variables that exist in the data.
+
+## TRY IT
+
+Compute the mean of `bp_sys1` by `age_decade`
+
+```{r}
+
+```
+
+
+# Count
+
+A common summary value to compute is the number of observations in a group (like you get with `table()`).  To compute counts using dplyr functions, we can use `count()` and `n()`:
+
+First, use `count()` to make a frequency table:
+
+```{r}
+healthdata %>%
+  count(gender)
+```
+
+```{r}
+healthdata %>%
+  count(gender, age_decade)
+```
+
+If we want the count along with other values, we can use `n()` with `summarize()`:
+
+```{r}
+healthdata %>%
+  group_by(gender) %>%
+  summarize(n = n(), 
+            mean_pulse = mean(pulse, na.rm=TRUE))
+```
+
+
+## TRY IT
+
+How many participants have each work_status?
+
+```{r}
+
+```
+
+
+## Computing Proportions
+
+Knowing the number of observations in each group is useful, but we often want to know the proportion as well.  We can compute proportions by summing the group counts, and dividing each by the sum:
+
+```{r}
+healthdata %>%
+  count(gender) %>%
+  mutate(prop = n / sum(n))
+```
+
+Or, if you want to compute other summary statistics at the same time:
+
+```{r}
+healthdata %>%
+  group_by(gender) %>%
+  summarize(mean_pulse = mean(pulse, na.rm=TRUE),
+            n = n()) %>%
+  mutate(prop = n / sum(n))
+```
+
+For simple cases, the equivalent with built-in functions is:
+
+```{r}
+table(healthdata$gender) / nrow(healthdata)
+
+# or 
+prop.table(table(healthdata$gender))
+```
+
+
+## TRY IT
+
+What proportion of participants have each `marital_status`?
+
+```{r}
+
+```
+
+
+
+## tabyl
+
+The `tabyl()` function in the janitor package is useful for computing tables with counts and proportions.  It uses a tidyverse syntax, taking a data frame as the first input and the unquoted name of the column(s) as additional inputs.
+
+```{r}
+# install.packages("janitor")
+library(janitor)
+
+tabyl(healthdata, gender)
+```
+
+With two variables, you just get counts:
+
+```{r}
+tabyl(healthdata, gender, work_status)
+```
+
+
+
