@@ -6,7 +6,7 @@ This workshop is being offered by [Northwestern IT Research Computing and Data S
 
 [How to download these materials](https://rcdsdocs.it.northwestern.edu/tutorials/git/workshop-materials.html).
 
-[How to set up R and RStudio]([https://sites.northwestern.edu/researchcomputing/resources/r-and-rstudio/](https://rcdsdocs.it.northwestern.edu/tutorials/r/r-installation.html#r-install)).
+[How to set up R and RStudio](https://rcdsdocs.it.northwestern.edu/tutorials/r/r-installation.html#r-install).
 
 # Helpful links:
 
