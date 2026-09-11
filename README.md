@@ -1,4 +1,4 @@
-# Introduction to R Programming
+# R Fundamentals for IBiS
 
 This workshop is being offered by [Northwestern IT Research Computing and Data Services](https://www.it.northwestern.edu/departments/it-services-support/research/).
 
