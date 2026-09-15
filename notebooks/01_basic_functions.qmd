@@ -114,7 +114,7 @@ The documentation will help you learn about a function if you know it's name, bu
 
 Here are two reference sheets that can help you get started with basic functions:
 
--   https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf
+-   https://posit.co/resources/cheatsheets/
 -   https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 
 The RCDS [R Resource Guide](https://rcdsdocs.it.northwestern.edu/guides/r/learn-r.html) collects tutorials, books, videos, and references for continuing beyond this workshop.

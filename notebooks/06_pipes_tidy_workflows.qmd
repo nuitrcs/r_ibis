@@ -122,7 +122,7 @@ library(tidyverse)
 healthdata <- read_csv("data/nhanes.csv")
 ```
 
-`read_csv()` makes slighly different assumptions about the data when importing than `read.csv()`.  For example, it reads in all numeric variables as the numeric type instead of using the integer type for some variables.
+`read_csv()` makes slightly different assumptions about the data when importing than `read.csv()`.  For example, it reads in all numeric variables as the numeric type instead of using the integer type for some variables.
 
 For data sets that include dates or other special types of data, `read_csv()` often handles and automatically converts such data into appropriate types well.
 
@@ -401,5 +401,4 @@ levels(healthdata$health_level)
 ```
 
 Use `is.na()` to find missing factor values. Do not convert missing values to a category unless “unknown” is analytically meaningful for the question at hand.
-
 

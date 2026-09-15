@@ -39,7 +39,7 @@ Challenge exercises typically require multiple steps or putting together concept
 
 ## Exercise: Import the Data and Load Libraries
 
-Add code to your script to import the data from `gov_env_2015.csv`. Make sure to assign the data a name. Load any required packages into your R session.
+Add code to your script to import the data from `data/gov_env_2015.csv`. Make sure to assign the data a name. Load any required packages into your R session.
 
 ## Exercise: Correlation
 
@@ -68,7 +68,6 @@ Run a regression predicting `globalization` as a function of `population`, `demo
 ## Exercise: Logistic Regression
 
 Make a new variable that indicates whether the country passed any climate laws or policies (`climate_laws_policies`).  Run a logistic regression predicting this new variable as a function of `co2_per_capita`, `temp_avg`, `rain_avg`, and `globalization`.  Which, if any, of the predictor variables are a statistically significant predictor of climate laws/policies being passed?
-
 
 
 

@@ -229,8 +229,8 @@ This code will recode all `NA` values in `healthdata$bp_sys1` to 9999 and leave 
 ```{r}
 healthdata$bp_sys1 <- ifelse(is.na(healthdata$bp_sys1), 9999, healthdata$bp_sys1)
 
-# or 
-mutate(healthdata, bp_sys1 = ifelse(is.na(bp_sys1), 9999, bp_sys1))
+# or
+healthdata <- mutate(healthdata, bp_sys1 = ifelse(is.na(bp_sys1), 9999, bp_sys1))
 ```
 
 If the test condition results in `NA`, then the output of `ifelse()` is `NA`.

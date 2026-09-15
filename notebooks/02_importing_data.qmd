@@ -145,4 +145,4 @@ To use imported data later, assign it to a variable:
 nu_calendar <- readxl::read_excel("data/NUdates.xlsx")
 ```
 
-Unlike `read.csv()`, `read_excel()` recognizes dates and imports them as date values automatically.
+Unlike `read.csv()`, `read_excel()` recognizes spreadsheet date/time cells and imports them as date-time values automatically.

@@ -39,7 +39,7 @@ Challenge exercises typically require multiple steps or putting together concept
 
 ## Exercise: Import the Data and Load Libraries
 
-Add code to your script to import the data from `gov_env_2015.csv`. Make sure to assign the data a name. Load any required packages into your R session.
+Add code to your script to import the data from `data/gov_env_2015.csv`. Make sure to assign the data a name. Load any required packages into your R session.
 
 ## Exercise: Examine Variable Distributions with Histograms
 
@@ -72,6 +72,5 @@ Make a scatterplot of `forest_land_pct` and `rain_avg`.  Color the points by reg
 Make a histogram of globalization.  Create facets of the plot by democracy.
 
 Challenge: Change the facet labels to be "Democracy" and "Not Democracy" instead of 0 and 1.
-
 
 

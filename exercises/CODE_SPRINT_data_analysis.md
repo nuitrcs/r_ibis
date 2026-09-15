@@ -47,7 +47,7 @@ Create a R script file in the new project where you will write the code for the 
 
 ## Exercise: Import the Data
 
-Copy the `gov_env_2015.csv` file from the workshop materials folder to the folder for the new RStudio project you created for the exercises.
+Create a `data` folder in the new RStudio project, then copy `gov_env_2015.csv` from the workshop materials folder into that `data` folder.
 
 Add code to your script to import the data. Make sure to assign the data a name.
 
@@ -73,7 +73,7 @@ Be sure to include any missing values in the tables.
 
 Compute the average (mean) of `rain_avg` and `temp_avg` for countries in the region "Eastern Europe/Former USSR".
 
-Challenge: Which country in "Latin America"" had the highest value of `co2_per_capita`?
+Challenge: Which country in "Latin America" had the highest value of `co2_per_capita`?
 
 Challenge: How many countries in "Sub-Saharan Africa" had `co2_per_capita` greater than 1 metric ton?
 
@@ -93,7 +93,7 @@ Subset the data frame to only include monarchies in "Western Europe, North Ameri
 
 Modify the `monarchy` variable so that the values are "monarchy" and "not monarchy" instead of numeric or logical values.
 
-Convert `rain_avg` to inches instead of mm (multiply by 25.4).
+Convert `rain_avg` to inches instead of mm (divide by 25.4).
 
 Change country name of "Congo, Democratic Republic" to "DR Congo".
 

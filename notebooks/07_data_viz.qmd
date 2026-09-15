@@ -103,7 +103,7 @@ ggplot(healthdata, aes(pulse)) +
   geom_histogram()
 ```
 
-The warning message is due to missing values in the variables.
+By default, ggplot suggests a bin count; it also warns when it omits missing values. Specify bins or binwidth deliberately, and check whether missing values need separate treatment.
 
 Control the number of bins (bars) with the bins argument.  ggplot does strictly obey this setting
 
@@ -250,6 +250,7 @@ Modify the plot below to color the points by whether the person is `physically_a
 ```{r}
 # subset the data so we can see all of the points
 # the slice_sample() function takes a random sample of rows
+set.seed(2026)
 healthdata_subset <- slice_sample(healthdata, n=100)
 
 ggplot(healthdata_subset, aes(x=bp_sys1, y=bp_sys2)) + 
@@ -410,5 +411,4 @@ ggplot(healthdata, aes(pulse)) +
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank())
 ```
-
 

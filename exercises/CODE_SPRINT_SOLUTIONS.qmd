@@ -13,7 +13,7 @@ There are many ways to achieve the same thing in R. This answer key provides one
 
 ## Exercise: Import the Data
 
-Copy the `gov_env_2015.csv` file from the workshop materials folder to the folder for the new RStudio project you created for the exercises.
+Create a `data` folder in the new RStudio project, then copy `gov_env_2015.csv` from the workshop materials folder into that `data` folder.
 
 Add code to your script to import the data. Make sure to assign the data a name.
 
@@ -155,7 +155,7 @@ filter(west_countries, population == max(population)) %>%
 
 Modify the `monarchy` variable so that the values are "monarchy" and "not monarchy" instead of numeric or logical values.
 
-Convert `rain_avg` from inches to millimeters (multiply by 25.4).
+Convert `rain_avg` from millimeters to inches (divide by 25.4).
 
 Change country name of "Congo, Democratic Republic" to "DR Congo".
 
@@ -164,9 +164,9 @@ govenv$monarchy <- ifelse(govenv$monarchy == 1, "monarchy", "not monarchy")
 # alternative
 govenv <- mutate(govenv, monarchy = ifelse(monarchy == 1, "monarchy", "not monarchy"))
 
-govenv$rain_avg <- govenv$rain_avg * 25.4
+govenv$rain_avg <- govenv$rain_avg / 25.4
 # alternative
-govenv <- mutate(govenv, rain_avg = rain_avg * 25.4)
+govenv <- mutate(govenv, rain_avg = rain_avg / 25.4)
 
 govenv$country[govenv$country == "Congo, Democratic Republic"] <- "DR Congo"
 # alternative
@@ -296,6 +296,13 @@ Save your code file, and then close RStudio. If prompted as to whether to save t
 
 # Data visualization
 
+The visualization exercises use the original variables, so start this section with a fresh copy of the data. This also makes the solutions below runnable on their own.
+
+```{r}
+library(tidyverse)
+govenv <- read_csv("data/gov_env_2015.csv")
+```
+
 ## Exercise: Examine Variable Distributions with Histograms
 
 Make a histogram of `rain_avg`. Change the number of bins/breaks. Add a title and set the axis labels appropriately.
@@ -398,6 +405,13 @@ govenv %>%
 
 # Statistics
 
+The statistics exercises also use the original variables, so start with a fresh copy of the data.
+
+```{r}
+library(tidyverse)
+govenv <- read_csv("data/gov_env_2015.csv")
+```
+
 ## Exercise: Correlation
 
 Are larger countries more globalized? Compute the correlation between `globalization` and `population`.
@@ -434,12 +448,12 @@ chisq.test(table(govenv$electoral_comp, govenv$presidential))
 
 ## Exercise: Linear Regression
 
-Run a regression predicting `co2_growth_rate` as a function of `co2_per_capita`, `forest_land_pct`, `agriculture_land_pct`, `temp_avg`, and `rain_avg`.
+Run a regression predicting `co2_growth_rate` as a function of `co2_per_capita`, `forest_land_pct`, `ag_land_pct`, `temp_avg`, and `rain_avg`.
 
 Run a regression predicting `globalization` as a function of `population`, `democracy`, and `gdp_per_capita`. Controlling for the other variables, are democracies more globalized or less than other countries?
 
 ```{r}
-lm(co2_growth_rate ~ co2_per_capita + forest_land_pct + agriculture_land_pct + temp_avg + rain_avg,
+lm(co2_growth_rate ~ co2_per_capita + forest_land_pct + ag_land_pct + temp_avg + rain_avg,
    data=govenv) %>%
   summary()
 
