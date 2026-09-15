@@ -155,7 +155,7 @@ filter(west_countries, population == max(population)) %>%
 
 Modify the `monarchy` variable so that the values are "monarchy" and "not monarchy" instead of numeric or logical values.
 
-Convert `rain_avg` to inches instead of mm (multiply by 25.4).
+Convert `rain_avg` from inches to millimeters (multiply by 25.4).
 
 Change country name of "Congo, Democratic Republic" to "DR Congo".
 
@@ -166,7 +166,7 @@ govenv <- mutate(govenv, monarchy = ifelse(monarchy == 1, "monarchy", "not monar
 
 govenv$rain_avg <- govenv$rain_avg * 25.4
 # alternative
-govenv <- mutate(govenv, rain_avg * 25.4)
+govenv <- mutate(govenv, rain_avg = rain_avg * 25.4)
 
 govenv$country[govenv$country == "Congo, Democratic Republic"] <- "DR Congo"
 # alternative
@@ -242,7 +242,7 @@ Challenge: Compute the mean number of climate_laws_policies grouping countries b
 ```{r}
 govenv %>%
   group_by(democracy) %>%
-  summarize(min_global = mean(globalization),
+  summarize(mean_global = mean(globalization),
             max_global = max(globalization))
 
 govenv %>%
