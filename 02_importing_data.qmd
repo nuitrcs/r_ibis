@@ -29,6 +29,10 @@ In RStudio, when you're importing a file, if you type quotation marks, and then 
 If you choose a folder initially, just hit tab again to get the list of the contents of that folder, until you find the file you want to import.
 
 This is helpful for avoiding typos in file names and so you can see what's accessible from the current working directory.
+
+RStudio Projects make relative file paths easier to use because the working directory is the project folder.
+
+If you want to connect RStudio Projects with Git and GitHub, see RCDS's [Using Git with RStudio](https://rcdsdocs.it.northwestern.edu/tutorials/r/git-with-r.html) tutorial.
 :::
 
 # Get Information about a Data Frame
@@ -39,7 +43,7 @@ We can use functions to get information about the data frame `healthdata`. We ca
 
 We can open the data in a spreadsheet-like viewer:
 
-```{r}
+```{r, eval=FALSE}
 View(healthdata)
 ```
 
@@ -120,3 +124,25 @@ We'll be working with this data set throughout the workshop. Here is some inform
 -   **sleep_hours**: number of hours of sleep per weeknight, integer values
 -   **sleep_trouble**: binary indicator of whether participant has sleep problems (Yes/No)
 -   **physically_active**: binary indicator of whether participant participates in at least moderate physical activities (Yes/No)
+
+# BONUS MATERIAL: Importing Excel Files
+
+R can import Excel files (`.xls`, `.xlsx`) directly with the `readxl` package. Because we only need one function here, we can write the package name before the function instead of loading the package with `library()`.
+
+```{r}
+readxl::read_excel("data/NUdates.xlsx")
+```
+
+By default, `read_excel()` imports the first sheet. Specify a sheet by name when needed:
+
+```{r}
+readxl::read_excel("data/NUdates.xlsx", sheet = "holidays")
+```
+
+To use imported data later, assign it to a variable:
+
+```{r, eval=FALSE}
+nu_calendar <- readxl::read_excel("data/NUdates.xlsx")
+```
+
+Unlike `read.csv()`, `read_excel()` recognizes dates and imports them as date values automatically.

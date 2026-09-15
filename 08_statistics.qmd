@@ -9,6 +9,32 @@ Import packages that we'll use:
 
 ```{r}
 library(tidyverse)
+healthdata <- read.csv("data/nhanes.csv")
+```
+
+# Summary Measures and Frequencies
+
+For continuous variables, common summary measures include the mean, median, standard deviation, variance, minimum, and maximum. Use `na.rm = TRUE` when missing values should be omitted:
+
+```{r}
+mean(healthdata$weight, na.rm = TRUE)
+median(healthdata$height, na.rm = TRUE)
+sd(healthdata$weight, na.rm = TRUE)
+```
+
+For summaries by group, use `group_by()` and `summarize()`:
+
+```{r}
+healthdata |>
+  group_by(gender) |>
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+```
+
+For categorical variables, `table()` gives counts and `prop.table()` gives proportions. `useNA = "ifany"` includes missing values when they occur:
+
+```{r}
+table(healthdata$gender, useNA = "ifany")
+prop.table(table(healthdata$gender, useNA = "ifany"))
 ```
 
 # Statistical Relationships
@@ -233,3 +259,12 @@ Run a linear regression model explaining weight with height.  Use `summary()` to
 
 ```
 
+# BONUS MATERIAL: Quantiles
+
+The median is the 50th percentile. Use `quantile()` to calculate several percentiles at once:
+
+```{r}
+quantile(healthdata$height,
+         probs = c(.1, .25, .5, .75, .9),
+         na.rm = TRUE)
+```

@@ -33,14 +33,20 @@ To change the name of the second column to "year", we select the value we want t
 names(healthdata)
 names(healthdata)[2] <- "year"
 names(healthdata)
+
+# restore the original name before the next example
+names(healthdata)[2] <- "survey_year"
 ```
 
-You can change multiple value at once as well:
+You can change multiple values at once as well:
 
 ```{r}
 names(healthdata)
 names(healthdata)[2:3] <- c("year", "participant_gender")
 names(healthdata)
+
+# restore the original names before the dplyr examples
+names(healthdata)[2:3] <- c("survey_year", "gender")
 ```
 
 ## rename()
@@ -128,6 +134,9 @@ For example, the weight variable in the dataset is in kg. Multiply all of the va
 
 ```{r}
 healthdata$weight <- healthdata$weight * 2.2
+
+# change it back to kilograms before continuing
+healthdata$weight <- healthdata$weight / 2.2
 ```
 
 ## Modifying Column Types
@@ -156,7 +165,7 @@ healthdata <- mutate(healthdata, height = height / 2.54)
 
 ## TRY IT
 
-Change back the variables we modified above: divide weight by 2.2, multiply height by 2.54, and convert the id variable back to an integer type
+Change height back to centimeters by multiplying by 2.54, and convert the id variable back to an integer type.
 
 ```{r}
 
@@ -221,7 +230,7 @@ This code will recode all `NA` values in `healthdata$bp_sys1` to 9999 and leave 
 healthdata$bp_sys1 <- ifelse(is.na(healthdata$bp_sys1), 9999, healthdata$bp_sys1)
 
 # or 
-mutate(healthdata, by_sys1 = ifelse(is.na(bp_sys1), 9999, bp_sys1))
+mutate(healthdata, bp_sys1 = ifelse(is.na(bp_sys1), 9999, bp_sys1))
 ```
 
 If the test condition results in `NA`, then the output of `ifelse()` is `NA`.
@@ -249,3 +258,21 @@ mutate(healthdata, long_sleeper = sleep_hours > 8)
 ```
 
 The column will be added to the far right of the data frame.
+
+# BONUS MATERIAL: More Data-Frame Changes
+
+`mutate()` can change an existing column or create a new one. Save the result only when you intend to keep the change:
+
+```{r}
+# return a modified copy without changing healthdata
+mutate(healthdata, weight_lbs = weight * 2.2)
+
+# save a new column in healthdata
+healthdata <- mutate(healthdata, height_inches = height / 2.54)
+```
+
+To remove rows or columns, create the subset you want and assign it to a new object or back to the original data frame. Avoid keeping many nearly identical copies of a dataset in the Environment.
+
+```{r}
+males <- healthdata[healthdata$gender == "male", ]
+```

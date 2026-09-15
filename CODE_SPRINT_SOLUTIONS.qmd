@@ -434,12 +434,12 @@ chisq.test(table(govenv$electoral_comp, govenv$presidential))
 
 ## Exercise: Linear Regression
 
-Run a regression predicting `co2_growth_rate` as a function of `co2_per_capita`, `forest_land_pct`, `ag_land_pct`, `temp_avg`, and `rain_avg`.
+Run a regression predicting `co2_growth_rate` as a function of `co2_per_capita`, `forest_land_pct`, `agriculture_land_pct`, `temp_avg`, and `rain_avg`.
 
 Run a regression predicting `globalization` as a function of `population`, `democracy`, and `gdp_per_capita`. Controlling for the other variables, are democracies more globalized or less than other countries?
 
 ```{r}
-lm(co2_growth_rate ~ co2_per_capita + forest_land_pct + ag_land_pct + temp_avg + rain_avg,
+lm(co2_growth_rate ~ co2_per_capita + forest_land_pct + agriculture_land_pct + temp_avg + rain_avg,
    data=govenv) %>%
   summary()
 

@@ -184,3 +184,35 @@ Combining this with the function `colSums()`, we can get a count of how many mis
 ```{r}
 colSums(is.na(healthdata))
 ```
+
+# BONUS MATERIAL: Standalone Vectors and Indexing
+
+The columns in a data frame are vectors, but we can also create vectors that are not part of a data frame with `c()` (short for combine):
+
+```{r}
+my_vector <- c("apple", "banana", "cat", "dog", "elephant")
+my_vector
+```
+
+Vectors contain one data type. If different types are combined, R silently converts values to a common type:
+
+```{r}
+c("a", 3, TRUE)
+```
+
+Use square brackets to select vector elements by position. R indices begin at 1:
+
+```{r}
+my_vector[1]
+my_vector[c(1, 5)]
+my_vector[1:3]
+```
+
+More often, select values with a condition rather than a position, because conditions remain meaningful if the data change:
+
+```{r}
+healthdata$age[healthdata$age > 75]
+mean(healthdata$age[healthdata$marital_status == "Divorced"], na.rm = TRUE)
+```
+
+When working with related measurements, keep them together in a data frame rather than as separate vectors. This helps prevent values from different observations being accidentally misaligned.

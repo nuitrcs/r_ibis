@@ -274,6 +274,42 @@ Use `%in%`:
 healthdata[healthdata$health_level %in% c("Fair", "Good", "Vgood"), ]
 ```
 
+# BONUS MATERIAL: Compound Conditions and Subsetting Review
+
+Use `&` for AND and `|` for OR when an observation must meet more than one condition. Use parentheses when mixing AND and OR.
+
+```{r}
+# base R
+healthdata[healthdata$age > 60 & healthdata$gender == "male", ]
+healthdata[healthdata$age < 21 | healthdata$age > 79, ]
+
+# dplyr
+filter(healthdata, age > 60, gender == "male")
+filter(healthdata, age < 21 | age > 79)
+```
+
+`%in%` is useful when matching several discrete values and handles missing values more predictably than repeated equality tests:
+
+```{r}
+filter(healthdata, sleep_hours %in% c(2, 3, 11, 12))
+```
+
+Quick reference:
+
+```{r, eval=FALSE}
+# one column
+healthdata$age
+select(healthdata, age)
+
+# selected rows, all columns
+healthdata[healthdata$gender == "male", ]
+filter(healthdata, gender == "male")
+
+# selected rows and columns
+healthdata[healthdata$gender == "male", c("gender", "age")]
+filter(healthdata, gender == "male") |> select(gender, age)
+```
+
 ### NA and %in%
 
 `%in%` has the advantage of handling NA values a bit more gracefully than testing for equality.

@@ -117,7 +117,8 @@ Here are two reference sheets that can help you get started with basic functions
 -   https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf
 -   https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 
+The RCDS [R Resource Guide](https://rcdsdocs.it.northwestern.edu/guides/r/learn-r.html) collects tutorials, books, videos, and references for continuing beyond this workshop.
+
 Beyond these, asking AI coding tools (like ChatGPT, Claude, Gemini, etc.) can be useful.  If you're using a typical web search instead (i.e. Google), including "r statistics" along with the search can help, since "R" alone can be ambiguous.  
 
 When working on specific analyses, online tutorials and package documentation are useful for identifying more specific functions.
-

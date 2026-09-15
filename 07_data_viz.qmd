@@ -18,6 +18,8 @@ healthdata <- read_csv("data/nhanes.csv")
 ## Online Resources
 
 There are many good online resources that show examples of different types of visualizations and the code to create them.  The R Graph Gallery is one example: https://r-graph-gallery.com/
+
+The RCDS [ggplot2 resource guide](https://rcdsdocs.it.northwestern.edu/guides/r/ggplot2.html) collects additional tutorials, books, videos, and references.
 :::
 
 # Visualization: ggplot2 Basics
@@ -409,11 +411,4 @@ ggplot(healthdata, aes(pulse)) +
         panel.grid.major.x = element_blank())
 ```
 
-A useful package for creating scientific plots is `{ggpubr}`. The function `theme_pubr` is especially useful to create plots with most of the modifications required for publication quality plots.
-
-```{r}
-ggplot(healthdata, aes(pulse)) +
-  geom_histogram() +
-  ggpubr::theme_pubr()
-```
 

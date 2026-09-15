@@ -81,7 +81,7 @@ Remember: Order matters - if you want to filter using a particular column, make 
 
 ## TRY IT
 
-Subset the healtdata data frame to contain the the education and marital_status for participants younger than 22.
+Subset the healthdata data frame to contain the education and marital_status for participants younger than 22.
 
 ```{r}
 
@@ -356,5 +356,50 @@ With two variables, you just get counts:
 tabyl(healthdata, gender, work_status)
 ```
 
+# BONUS MATERIAL: Helpful Functions
+
+## Sorting and Distinct Values
+
+Use `sort()` to order a vector, and `arrange()` to order rows in a data frame:
+
+```{r}
+sort(healthdata$age, decreasing = TRUE)
+arrange(healthdata, age)
+arrange(healthdata, desc(age))
+```
+
+`unique()` returns distinct values in a vector. `n_distinct()` from dplyr counts them:
+
+```{r}
+sort(unique(healthdata$sleep_hours))
+n_distinct(healthdata$sleep_hours)
+```
+
+## Saving a Data Frame
+
+Save a new file rather than overwriting a source dataset. `write_csv()` from readr does not add row numbers to the output:
+
+```{r, eval=FALSE}
+readr::write_csv(
+  healthdata[healthdata$gender == "male", ],
+  file = "male_respondents.csv"
+)
+```
+
+# BONUS MATERIAL: Factors
+
+Factors store categorical variables with a defined set and order of levels. They are especially useful when categories have a meaningful order or when you want plotting and modeling output to use a deliberate reference category.
+
+```{r}
+healthdata$health_level <- factor(
+  healthdata$health_level,
+  levels = c("Poor", "Fair", "Good", "Vgood", "Excellent"),
+  ordered = TRUE
+)
+
+levels(healthdata$health_level)
+```
+
+Use `is.na()` to find missing factor values. Do not convert missing values to a category unless “unknown” is analytically meaningful for the question at hand.
 
 
