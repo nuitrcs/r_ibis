@@ -91,7 +91,7 @@ The output of `str()` is also what you can see in the Environment tab in RStudio
 
 ## Variable (Column) Names
 
-We'll need to reference the column names frequency. To see those more compactly than with `str()`, use `names()`
+We'll need to reference the column names frequently. To see those more compactly than with `str()`, use `names()`
 
 ```{r}
 names(healthdata)

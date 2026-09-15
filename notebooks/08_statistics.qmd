@@ -218,7 +218,7 @@ We want to do more than plot the line - we want to know the slope, intercept, an
 
 ## Formula Syntax: Basics
 
-To compute the linear regression model, we use the `lm`() function (lm = linear model).  We specify the relationship between the variables with the formula syntax, which at the basic level is `y ~ x`.  The y is the dependent or outcome variable, and it is being modeled as a function of one or more x (independent, predictor, explanatory) variables
+To compute the linear regression model, we use the `lm()` function (lm = linear model).  We specify the relationship between the variables with the formula syntax, which at the basic level is `y ~ x`.  The y is the dependent or outcome variable, and it is being modeled as a function of one or more x (independent, predictor, explanatory) variables
 
 ```{r}
 lm(pulse ~ age, data=healthdata)
@@ -249,7 +249,7 @@ summary(reg1)
 
 The output of `summary()` includes the standard error on each coefficient estimate, and it computes a t-test for each to determine the likelihood that the coefficient estimate would take the given value if the true value of the coefficient was 0.  We get "stars" summarizing which coefficients are statistically different from 0 at common significance levels. It also include the R-squared measure, which is a measure of how much variance in the dependent variable is explained by the model.  It ranges between 0 and 1.  
 
-The output of `summary()` also let's us know that 184 observations were dropped from the model because they had a missing value for at least one of the variables included in the model.  Observations (rows) must have non-missing values for all variables in the model to be included in the estimation.  
+The output of `summary()` also lets us know that some observations were dropped from the model because they had a missing value for at least one of the variables included in the model. Observations (rows) must have non-missing values for all variables in the model to be included in the estimation.
 
 ## TRY IT
 

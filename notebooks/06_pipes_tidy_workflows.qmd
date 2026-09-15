@@ -250,7 +250,7 @@ We can also group by multiple variables:
 ```{r}
 healthdata %>%
   group_by(age, gender) %>%
-  summarize(mean_weight = mean(weight, na.rm=TRUE))
+  summarize(mean_weight = mean(weight, na.rm=TRUE), .groups = "drop")
 ```
 
 The rows have all combinations of the two grouping variables that exist in the data.
@@ -401,4 +401,3 @@ levels(healthdata$health_level)
 ```
 
 Use `is.na()` to find missing factor values. Do not convert missing values to a category unless “unknown” is analytically meaningful for the question at hand.
-

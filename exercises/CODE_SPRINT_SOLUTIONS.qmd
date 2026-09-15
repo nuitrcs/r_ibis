@@ -85,7 +85,7 @@ table(govenv$climate_laws_policies, useNA="ifany")
 
 Compute the average (mean) of `rain_avg` and `temp_avg` for countries in the region "Eastern Europe/Former USSR".
 
-Challenge: Which country in "Latin America"" had the highest value of `co2_per_capita`?
+Challenge: Which country in "Latin America" had the highest value of `co2_per_capita`?
 
 Challenge: How many countries in "Sub-Saharan Africa" had `co2_per_capita` greater than 1 metric ton?
 
@@ -94,8 +94,9 @@ Challenge: How many countries in "Sub-Saharan Africa" had `co2_per_capita` great
 mean(govenv$rain_avg[govenv$region == "Eastern Europe/Former USSR"])
 mean(govenv$temp_avg[govenv$region == "Eastern Europe/Former USSR"])
 
-maxval <- max(govenv$co2_per_capita[govenv$region == "Latin America"])
-govenv$country[govenv$co2_per_capita == maxval]
+latin_america <- govenv$region == "Latin America"
+maxval <- max(govenv$co2_per_capita[latin_america], na.rm=TRUE)
+govenv$country[latin_america & govenv$co2_per_capita == maxval]
 
 sum(govenv$co2_per_capita[govenv$region == "Sub-Saharan Africa"] > 1, na.rm=TRUE)
 
@@ -370,7 +371,7 @@ ggplot(govenv, aes(x=forest_land_pct, y=rain_avg)) +
   geom_point() +
   scale_y_continuous(limits = c(0, 300))
 
-# Alternative
+# Alternative: zoom in without dropping observations outside the displayed range
 ggplot(govenv, aes(x=forest_land_pct, y=rain_avg)) + 
   geom_point() +
   coord_cartesian(ylim = c(0, 300))
